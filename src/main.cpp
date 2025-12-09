@@ -3,12 +3,13 @@
 #include "window/window.h"
 #include "mesh/mesh.h"
 #include "glm/gtc/matrix_transform.hpp"
+#include "input/keyboard.h"
+#include "input/mouse.h"
 
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+void process_input(Window& wnd);
 
 int main() {
     Window wnd;
-    wnd.set_keycallback(key_callback);
 
     ShaderProgram sp(cnst::simple_vs, cnst::simple_fs);
 
@@ -29,7 +30,7 @@ int main() {
     mat4 trans = mat4(1.0f);
 
     while (!wnd.should_close()) {                                                                           // Main loop 
-        glfwPollEvents();                                                                                   // Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions 
+        process_input(wnd);
                                                                                                             // Render 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);                                                               // Clear the colorbuffer 
         glClear(GL_COLOR_BUFFER_BIT);
@@ -39,16 +40,26 @@ int main() {
 
         mesh.draw(sp);
         wnd.swap_buffers();                                                                                 // Swap the screen buffers 
+        
+        glfwPollEvents();                                                                                   // Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions 
     }
 
     return 0;
 }
 
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {                        // Is called whenever a key is pressed/released via GLFW 
-    std::cout << key << std::endl;
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, GL_TRUE);
+void process_input(Window& wnd) {
+    auto& keyboard = Keyboard::get_instance();
+    if (keyboard.is_pressed(GLFW_KEY_ESCAPE)) {
+        wnd.set_should_close(true);
+    }
 }
+
+
+//void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {                        // Is called whenever a key is pressed/released via GLFW 
+//    std::cout << key << std::endl;
+//    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+//        glfwSetWindowShouldClose(window, GL_TRUE);
+//}
 
 //GLfloat timeValue = glfwGetTime();
 //GLfloat coef = (sin(timeValue) / 2) + 0.5;

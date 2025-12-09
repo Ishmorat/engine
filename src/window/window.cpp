@@ -31,6 +31,29 @@ void Window::set_viewport() {
     glViewport(0, 0, width, height);
 }
 
+void Window::set_keycallback(GLFWkeyfun callback) {
+    glfwSetKeyCallback(ptr, callback);
+}
+
+void Window::set_cursorcallback(GLFWcursorposfun callback) {
+    glfwSetCursorPosCallback(ptr, callback);
+}
+
+void Window::set_buttoncallback(GLFWmousebuttonfun callback) {
+    glfwSetMouseButtonCallback(ptr, callback);
+}
+
+void Window::set_scrollcallback(GLFWscrollfun callback) {
+    glfwSetScrollCallback(ptr, callback);
+}
+
+void Window::set_callbacks() {
+    set_keycallback(Keyboard::key_callback);
+    set_cursorcallback(Mouse::cursor_callback);
+    set_buttoncallback(Mouse::button_callback);
+    set_scrollcallback(Mouse::scroll_callback);
+}
+
 void Window::terminate() {
     glfwTerminate();                                                                                        // Terminate GLFW, clearing any resources allocated by GLFW 
 }
@@ -41,6 +64,7 @@ void Window::init() {
     make_target();
     init_glew();
     set_viewport();
+    set_callbacks();
 }
 
 Window::Window() {
@@ -51,12 +75,12 @@ void Window::make_target() {
     glfwMakeContextCurrent(ptr);
 }
 
-bool Window::should_close() {
-    return glfwWindowShouldClose(ptr);
+void Window::set_should_close(bool val) {
+    glfwSetWindowShouldClose(ptr, val);
 }
 
-void Window::set_keycallback(GLFWkeyfun callback) {
-    glfwSetKeyCallback(ptr, callback);
+bool Window::should_close() {
+    return glfwWindowShouldClose(ptr);
 }
 
 void Window::swap_buffers() {
