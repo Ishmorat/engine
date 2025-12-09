@@ -6,15 +6,15 @@
 using glm::vec2;
 
 enum class WrapType : GLint {
-	REPEAT = GL_REPEAT,
-	MIRROR = GL_MIRRORED_REPEAT,
-	CTOE   = GL_CLAMP_TO_EDGE,
-	CTOB   = GL_CLAMP_TO_BORDER
+	REPEAT	= GL_REPEAT,
+	MIRROR	= GL_MIRRORED_REPEAT,
+	CTOE	= GL_CLAMP_TO_EDGE,
+	CTOB	= GL_CLAMP_TO_BORDER
 };
 
-enum class FilterType {
-	NEAR = GL_NEAREST,
-	LIN  = GL_LINEAR
+enum class FilterType : GLint {
+	NEAR	= GL_NEAREST,
+	LIN		= GL_LINEAR
 };
 
 struct TextureParams {

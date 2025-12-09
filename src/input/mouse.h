@@ -1,0 +1,35 @@
+#pragma once
+
+#include "../gl/gl.h"
+#include <bitset>
+
+constexpr GLint LAST_BUTTON = GLFW_MOUSE_BUTTON_LAST;
+
+class Mouse {
+private:
+	std::bitset<LAST_BUTTON> pressed;
+	std::bitset<LAST_BUTTON> changed;
+	GLfloat		x;
+	GLfloat		y;
+	GLfloat		x_prev;
+	GLfloat		y_prev;
+	GLfloat		dx_scroll;
+	GLfloat		dy_scroll;
+	GLboolean	first_move;
+private:
+	Mouse();
+	~Mouse();
+public:
+	Mouse(const Mouse&)				= delete;
+	Mouse& operator=(const Mouse&)	= delete;
+	static Mouse& get_instance();
+	static void pos_callback(GLFWwindow* window, double x, double y);
+	static void button_callback(GLFWwindow* window, int button, int action, int mods);
+	static void wheel_callback(GLFWwindow* window, double dx, double dy);
+	GLfloat get_x()					const noexcept;
+	GLfloat get_y()					const noexcept;
+	GLfloat get_dx()				const noexcept;
+	GLfloat get_dy()				const noexcept;
+	GLfloat get_dx_scroll()			const noexcept;
+	GLfloat get_dy_scroll()			const noexcept;
+};

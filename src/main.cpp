@@ -2,6 +2,7 @@
 
 #include "window/window.h"
 #include "mesh/mesh.h"
+#include "glm/gtc/matrix_transform.hpp"
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
@@ -25,11 +26,16 @@ int main() {
 
     Mesh mesh(vertices, indices);
 
+    mat4 trans = mat4(1.0f);
+
     while (!wnd.should_close()) {                                                                           // Main loop 
         glfwPollEvents();                                                                                   // Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions 
                                                                                                             // Render 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);                                                               // Clear the colorbuffer 
         glClear(GL_COLOR_BUFFER_BIT);
+
+        trans = glm::rotate(trans, glm::radians((GLfloat)glfwGetTime() * 0.1f), glm::vec3(0.0, 0.0, 1.0));
+        sp.set("trans", trans);
 
         mesh.draw(sp);
         wnd.swap_buffers();                                                                                 // Swap the screen buffers 
