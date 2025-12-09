@@ -48,13 +48,31 @@ GLfloat Mouse::get_dx() const noexcept {
 }
 
 GLfloat Mouse::get_dy() const noexcept {
-	return y - y_prev;
+	return y_prev - y;
 }
 
 GLfloat Mouse::get_dx_scroll() const noexcept {
-	return dx_scroll;
+	return std::exchange(dx_scroll, 0.0f);
 }
 
 GLfloat Mouse::get_dy_scroll() const noexcept {
-	return dy_scroll;
+	return std::exchange(dy_scroll, 0.0f);
+}
+
+bool Mouse::is_pressed(int button) {
+	return pressed[button];
+}
+
+bool Mouse::is_changed(int button) {
+	bool res = changed[button];
+	changed[button] = false;
+	return res;
+}
+
+bool Mouse::is_went_down(int button) {
+	return pressed[button] && is_changed(button);
+}
+
+bool Mouse::is_went_up(int button) {
+	return !pressed[button] && is_changed(button);
 }

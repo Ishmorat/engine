@@ -32,4 +32,8 @@ public:
 	GLfloat get_dy()				const noexcept;
 	GLfloat get_dx_scroll()			const noexcept;
 	GLfloat get_dy_scroll()			const noexcept;
+	bool is_pressed(int button);
+	bool is_changed(int button);
+	bool is_went_down(int button);
+	bool is_went_up(int button);
 };
