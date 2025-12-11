@@ -1,15 +1,7 @@
 #include "buffer.h"
 
-void Buffer::create() {
-	glGenBuffers(1, &id);
-}
-
-void Buffer::clear() {
-	glDeleteBuffers(1, &id);
-}
-
-Buffer::Buffer() {
-	create();
+Buffer::Buffer() : id{ 0 } {
+	// create();
 }
 
 void Buffer::bind(DataType data_t) {
@@ -22,4 +14,13 @@ void Buffer::unbind(DataType data_t) {
 
 Buffer::~Buffer() {
 	clear();
+}
+
+void Buffer::create() {
+	glGenBuffers(1, &id);
+}
+
+void Buffer::clear() {
+	glDeleteBuffers(1, &id);
+	id = 0;
 }

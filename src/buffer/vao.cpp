@@ -1,22 +1,23 @@
 #include "vao.h"
 #include "../primitives/vertex.h"
 
-void VAO::create() {
-	glGenVertexArrays(1, &id);
-}
-
-void VAO::clear() {
-	glDeleteVertexArrays(1, &id);
-}
-
 void VAO::attrib(GLuint idx, GLint cnt, GLenum type, const void* ptr) {
 	GLuint sz = sizeof(Vertex);
 	glEnableVertexAttribArray(idx);
 	glVertexAttribPointer(idx, cnt, type, GL_FALSE, sz, ptr);
 }
 
-VAO::VAO() {
-	create();
+VAO::VAO() : id{ 0 } {
+	// create();
+}
+
+void VAO::create() {
+	glGenVertexArrays(1, &id);
+}
+
+void VAO::clear() {
+	glDeleteVertexArrays(1, &id);
+	id = 0;
 }
 
 void VAO::set_attribs() {

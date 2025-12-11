@@ -29,6 +29,8 @@ int main() {
 
     mat4 trans = mat4(1.0f);
 
+
+
     while (!wnd.should_close()) {                                                                           // Main loop 
         process_input(wnd);
                                                                                                             // Render 

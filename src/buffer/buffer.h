@@ -17,15 +17,16 @@ enum class DrawType : GLenum {
 class Buffer {
 private:
 	GLuint id;
-	void create();
-	void clear();
-protected:
+public:
 	Buffer();
 	template <typename T>
 	void set_data(DataType data_t, const std::vector<T>& input, DrawType draw_t);
 	void bind(DataType data_t);
 	void unbind(DataType data_t);
 	~Buffer();
+public:
+	void create();
+	void clear();
 };
 
 template <typename T>
