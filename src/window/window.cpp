@@ -18,7 +18,7 @@ void Window::init_glew() {
 }
 
 void Window::create() {
-    ptr = glfwCreateWindow(cfg::width, cfg::height, cfg::title, nullptr, nullptr);                          // Create a GLFWwindow object that we can use for GLFW's functions 
+    ptr = glfwCreateWindow(width, height, cfg::title, nullptr, nullptr);                                    // Create a GLFWwindow object that we can use for GLFW's functions 
     if (ptr == nullptr) {
         terminate();
         throw std::runtime_error("Window not created");
@@ -26,9 +26,11 @@ void Window::create() {
 }
 
 void Window::set_viewport() {
-    int width, height;                                                                                      // Define the viewport dimensions 
-    glfwGetFramebufferSize(ptr, &width, &height);
-    glViewport(0, 0, width, height);
+    glViewport(0, 0, width, height);                                                                        // Define the viewport dimensions 
+}
+
+void Window::set_sizecallback(GLFWframebuffersizefun callback) {
+    glfwSetFramebufferSizeCallback(ptr, callback);
 }
 
 void Window::set_keycallback(GLFWkeyfun callback) {
@@ -67,7 +69,11 @@ void Window::init() {
     set_callbacks();
 }
 
-Window::Window() {
+Window::Window(int width, int height) 
+    : ptr   { nullptr }
+    , width { width   }
+    , height{ height  }
+{
     init();
 }
 
@@ -85,6 +91,14 @@ bool Window::should_close() {
 
 void Window::swap_buffers() {
     glfwSwapBuffers(ptr);
+}
+
+int Window::get_width() {
+    return width;
+}
+
+int Window::get_height() {
+    return height;
 }
 
 Window::~Window() {

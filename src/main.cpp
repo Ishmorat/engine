@@ -5,8 +5,9 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "input/keyboard.h"
 #include "input/mouse.h"
+#include "camera/camera.h"
 
-void process_input(Window& wnd);
+void process_input(Window& wnd, Camera& cam, GLfloat dt);
 
 int main() {
     Window wnd;
@@ -14,31 +15,60 @@ int main() {
     ShaderProgram sp(cnst::simple_vs, cnst::simple_fs);
 
     std::vector<Vertex> vertices = {
-        Vertex({ 0.5f,  0.5f, 0.0f}, { 1.0f, 0.0f, 0.0f }),  // Top Right
-        Vertex({ 0.5f, -0.5f, 0.0f}, { 0.0f, 1.0f, 0.0f }),  // Bottom Right
-        Vertex({-0.5f, -0.5f, 0.0f}, { 0.0f, 0.0f, 1.0f }),  // Bottom Left
-        Vertex({-0.5f,  0.5f, 0.0f}, { 0.0f, 0.0f, 0.0f })   // Top Left
+        Vertex({ -0.5f,  0.5f, -0.5f  }, { 1.0f, 0.0f, 0.0f }),  // Top Left Near 
+        Vertex({  0.5f,  0.5f, -0.5f  }, { 1.0f, 0.0f, 0.0f }),  // Top Right Near 
+        Vertex({ -0.5f, -0.5f, -0.5f  }, { 1.0f, 0.0f, 0.0f }),  // Bottom Left Near 
+        Vertex({  0.5f, -0.5f, -0.5f  }, { 1.0f, 0.0f, 0.0f }),  // Bottom Right Near 
+        
+        Vertex({ -0.5f,  0.5f,  0.5f  }, { 0.0f, 1.0f, 0.0f }),  // Top Left Far 
+        Vertex({  0.5f,  0.5f,  0.5f  }, { 0.0f, 1.0f, 0.0f }),  // Top Right Far 
+        Vertex({ -0.5f, -0.5f,  0.5f  }, { 0.0f, 1.0f, 0.0f }),  // Bottom Left Far 
+        Vertex({  0.5f, -0.5f,  0.5f  }, { 0.0f, 1.0f, 0.0f }),  // Bottom Right Far 
     };
 
     std::vector<GLuint> indices = {
-        0, 1, 3,  // First Triangle
-        1, 2, 3   // Second Triangle
+        0, 2, 1,    // Near 
+        1, 2, 3, 
+
+        5, 7, 4,    // Far 
+        4, 7, 6, 
+
+        4, 6, 0,    // Left 
+        0, 6, 2, 
+
+        1, 3, 5,    // Right 
+        5, 3, 7, 
+
+        4, 0, 5,    // Top 
+        5, 0, 1, 
+
+        2, 6, 3,    // Bottom 
+        3, 6, 7 
     };
 
     Mesh mesh(vertices, indices);
 
-    mat4 trans = mat4(1.0f);
+    mat4 model = mat4(1.0f);
+
+    Camera cam;
+
+    glEnable(GL_DEPTH_TEST);
 
 
+    GLfloat prev_t = 0.0;
+    GLfloat curr_t = glfwGetTime();
 
     while (!wnd.should_close()) {                                                                           // Main loop 
-        process_input(wnd);
+        prev_t = std::exchange(curr_t, glfwGetTime());
+        process_input(wnd, cam, curr_t - prev_t);
                                                                                                             // Render 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);                                                               // Clear the colorbuffer 
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        trans = glm::rotate(trans, glm::radians((GLfloat)glfwGetTime() * 0.1f), glm::vec3(0.0, 0.0, 1.0));
-        sp.set("trans", trans);
+        // model = glm::rotate(model, glm::radians(0.1f), glm::vec3(1.0, 1.0, 1.0));
+        sp.set("model", model);
+        sp.set("projection", cam.get_proj(wnd.get_width(), wnd.get_height()));
+        sp.set("view", cam.get_view());
 
         mesh.draw(sp);
         wnd.swap_buffers();                                                                                 // Swap the screen buffers 
@@ -49,12 +79,27 @@ int main() {
     return 0;
 }
 
-void process_input(Window& wnd) {
+void process_input(Window& wnd, Camera& cam, GLfloat dt) {
     auto& keyboard = Keyboard::get_instance();
     if (keyboard.is_pressed(GLFW_KEY_ESCAPE)) {
         wnd.set_should_close(true);
     }
+
+    cam.process_input(wnd, dt);
 }
+
+
+//std::vector<Vertex> vertices = {
+//    Vertex({ 0.5f,  0.5f, 0.0f}, { 1.0f, 0.0f, 0.0f }),  // Top Right
+//    Vertex({ 0.5f, -0.5f, 0.0f}, { 0.0f, 1.0f, 0.0f }),  // Bottom Right
+//    Vertex({-0.5f, -0.5f, 0.0f}, { 0.0f, 0.0f, 1.0f }),  // Bottom Left
+//    Vertex({-0.5f,  0.5f, 0.0f}, { 0.0f, 0.0f, 0.0f })   // Top Left
+//};
+
+//std::vector<GLuint> indices = {
+//    0, 1, 3,  // First Triangle
+//    1, 2, 3   // Second Triangle
+//};
 
 
 //void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {                        // Is called whenever a key is pressed/released via GLFW 

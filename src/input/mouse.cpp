@@ -21,6 +21,8 @@ void Mouse::cursor_callback(GLFWwindow* window, double x, double y) {
 	auto& mouse = Mouse::get_instance();
 	mouse.x_prev = std::exchange(mouse.x, x);
 	mouse.y_prev = std::exchange(mouse.y, y);
+	mouse.dx = mouse.x - mouse.x_prev;
+	mouse.dy = mouse.y_prev - mouse.y;
 }
 
 void Mouse::button_callback(GLFWwindow* window, int button, int action, int mods) {
@@ -44,11 +46,11 @@ GLfloat Mouse::get_y() const noexcept {
 }
 
 GLfloat Mouse::get_dx() const noexcept {
-	return x - x_prev;
+	return dx;
 }
 
 GLfloat Mouse::get_dy() const noexcept {
-	return y_prev - y;
+	return dy;
 }
 
 GLfloat Mouse::get_dx_scroll() noexcept {

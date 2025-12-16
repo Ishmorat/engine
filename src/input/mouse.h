@@ -13,6 +13,8 @@ private:
 	GLfloat		y;
 	GLfloat		x_prev;
 	GLfloat		y_prev;
+	GLfloat		dx;								// „тобы не пересчитывать несколько раз за итерацию 
+	GLfloat		dy;
 	GLfloat		dx_scroll;
 	GLfloat		dy_scroll;
 	GLboolean	first_move;
