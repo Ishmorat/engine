@@ -45,12 +45,14 @@ GLfloat Mouse::get_y() const noexcept {
 	return y;
 }
 
-GLfloat Mouse::get_dx() const noexcept {
-	return dx;
+GLfloat Mouse::get_dx() noexcept {
+	// return dx;
+	return std::exchange(dx, 0.0f);
 }
 
-GLfloat Mouse::get_dy() const noexcept {
-	return dy;
+GLfloat Mouse::get_dy() noexcept {
+	// return dy;
+	return std::exchange(dy, 0.0f);
 }
 
 GLfloat Mouse::get_dx_scroll() noexcept {

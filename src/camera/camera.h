@@ -16,7 +16,7 @@ enum class ProjType {
 	ORTHO
 };
 
-enum class CameraMovement : GLuint {
+enum class CameraMovement {
 	FORWARD,
 	BACK,
 	LEFT,
@@ -27,26 +27,26 @@ enum class CameraMovement : GLuint {
 
 class Camera {
 private:
-	vec3 position;
-	vec3 front;
-	vec3 up;
-	vec3 right;
+	vec3	 position;
+	vec3	 front;
+	vec3	 up;
+	vec3	 right;
+	vec3	 world_up;
 
-	GLfloat fov;
-	GLfloat near;
-	GLfloat far;
+	GLfloat  fov;
+	GLfloat  near;
+	GLfloat  far;
 
-	GLfloat speed;
-	GLfloat sens;
+	GLfloat  speed;
+	GLfloat  sens;
 
 	ProjType proj_t;
 private:
 	void move(CameraMovement dir, GLfloat dt);
 	void rotate(GLfloat dx, GLfloat dy);
 public:
-	Camera();
+	Camera(const vec3& position = cfg::position);
 	mat4 get_view();
 	mat4 get_proj(GLfloat width, GLfloat height);
 	void process_input(Window& wnd, GLfloat dt);
-
 };

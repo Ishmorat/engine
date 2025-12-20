@@ -30,8 +30,8 @@ public:
 	static void scroll_callback(GLFWwindow* window, double dx, double dy);
 	GLfloat get_x()					const noexcept;
 	GLfloat get_y()					const noexcept;
-	GLfloat get_dx()				const noexcept;
-	GLfloat get_dy()				const noexcept;
+	GLfloat get_dx()				noexcept;
+	GLfloat get_dy()				noexcept;
 	GLfloat get_dx_scroll()			noexcept;
 	GLfloat get_dy_scroll()			noexcept;
 	bool is_pressed(int button);

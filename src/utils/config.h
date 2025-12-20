@@ -1,9 +1,27 @@
 #pragma once
 
+#include <glm/vec3.hpp>
+
+using glm::vec3;
+
 namespace cfg {
-	static const unsigned int	width		= 800;
-	static const unsigned int	height		= 600;
+	// Window 
+	static const unsigned int	width		= 1200;
+	static const unsigned int	height		= 900;
 	static const char*			title		= "Engine";
+
+	// Camera 
+	static const vec3			position	= vec3(0.0f, 0.0f, 1.0f);
+	static const vec3			front		= vec3(0.0f, 0.0f, -1.0f);
+	static const vec3			up			= vec3(0.0f, 1.0f, 0.0f);
+	static const vec3			right		= vec3(1.0f, 0.0f, 0.0f);
+
+	static const float			fov			= 45.0f;
+	static const float			near		= 0.1f;
+	static const float			far			= 100.0f;
+
+	static const float			speed		= 10.0f;
+	static const float			sens		= 0.002f;
 }
 
 namespace cnst {
