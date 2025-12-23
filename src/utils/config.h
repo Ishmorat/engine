@@ -24,6 +24,12 @@ namespace cfg {
 	static const float			sens		= 0.002f;
 }
 
+namespace uniform {
+	static const char*			model		= "model";
+	static const char*			view		= "view";
+	static const char*			projection	= "projection";
+}
+
 namespace cnst {
 	static const char*			simple_vs	= "res/shaders/simple.vs";
 	static const char*			simple_fs	= "res/shaders/simple.fs";

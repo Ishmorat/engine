@@ -8,7 +8,7 @@ enum class DataType : GLenum {
 	INDEX  = GL_ELEMENT_ARRAY_BUFFER
 };
 
-enum class DrawType : GLenum {
+enum class DrawMode : GLenum {
 	STATIC  = GL_STATIC_DRAW,
 	DYNAMIC = GL_DYNAMIC_DRAW,
 	STREAM  = GL_STREAM_DRAW
@@ -16,11 +16,11 @@ enum class DrawType : GLenum {
 
 class Buffer {
 private:
-	GLuint id;
+	uint id;
 public:
 	Buffer();
 	template <typename T>
-	void set_data(DataType data_t, const std::vector<T>& input, DrawType draw_t);
+	void set_data(DataType data_t, const std::vector<T>& input, DrawMode draw_m);
 	void bind(DataType data_t);
 	void unbind(DataType data_t);
 	~Buffer();
@@ -30,8 +30,8 @@ public:
 };
 
 template <typename T>
-void Buffer::set_data(DataType data_t, const std::vector<T>& input, DrawType draw_t) {
-	GLuint count = input.size();
-	GLuint sz = sizeof(T);
-	glBufferData(static_cast<GLenum>(data_t), count * sz, input.data(), static_cast<GLenum>(draw_t));
+void Buffer::set_data(DataType data_t, const std::vector<T>& input, DrawMode draw_m) {
+	uint count = input.size();
+	uint sz = sizeof(T);
+	glBufferData(static_cast<GLenum>(data_t), count * sz, input.data(), static_cast<GLenum>(draw_m));
 }

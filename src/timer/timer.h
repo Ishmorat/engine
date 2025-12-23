@@ -4,9 +4,9 @@
 
 class Timer {
 private:
-	GLfloat prev;
+	float prev;
 public:
 	Timer();
-	GLfloat get_time()	const noexcept;
-	GLfloat get_dt()	noexcept;
+	float get_time()	const noexcept;
+	float get_dt()		noexcept;
 };

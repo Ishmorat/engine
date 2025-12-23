@@ -1,8 +1,8 @@
 #include "vao.h"
 #include "../primitives/vertex.h"
 
-void VAO::attrib(GLuint idx, GLint cnt, GLenum type, const void* ptr) {
-	GLuint sz = sizeof(Vertex);
+void VAO::attrib(uint idx, int cnt, GLenum type, const void* ptr) {
+	uint sz = sizeof(Vertex);
 	glEnableVertexAttribArray(idx);
 	glVertexAttribPointer(idx, cnt, type, GL_FALSE, sz, ptr);
 }

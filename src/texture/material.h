@@ -10,14 +10,14 @@ namespace {
 
 struct Material {
 public:
-    GLuint  id;
-    vec2    uv_scale;
-    GLfloat metallic;
-    GLfloat opacity;
-    GLfloat volume;
+    uint  id;
+    vec2  uv_scale;
+    float metallic;
+    float opacity;
+    float volume;
     std::vector<Texture*> textures;
 public:
-    Material(GLuint id, std::vector<Texture*>& textures)
+    Material(uint id, std::vector<Texture*>& textures)
         : id      { id         }
         , uv_scale{ vec2(1.0f) }
         , metallic{ 0.0f       }

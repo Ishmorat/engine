@@ -3,7 +3,7 @@
 #include <bitset>
 #include "../gl/gl.h"
 
-constexpr GLuint LAST_KEY = GLFW_KEY_LAST;
+constexpr uint LAST_KEY = GLFW_KEY_LAST;
 
 class Keyboard {
 private:

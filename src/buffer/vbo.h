@@ -6,7 +6,7 @@
 class VBO : public Buffer {
 public:
 	VBO();
-	void set_data(const std::vector<Vertex>& vertices, DrawType draw_t = DrawType::STATIC);
+	void set_data(const std::vector<Vertex>& vertices, DrawMode draw_m = DrawMode::STATIC);
 	void bind();
 	void unbind();
 	~VBO();

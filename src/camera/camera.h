@@ -11,7 +11,7 @@ using glm::vec3;
 using glm::vec4;
 using glm::mat4;
 
-enum class ProjType {
+enum class ProjMode {
 	PERSP,
 	ORTHO
 };
@@ -33,20 +33,20 @@ private:
 	vec3	 right;
 	vec3	 world_up;
 
-	GLfloat  fov;
-	GLfloat  near;
-	GLfloat  far;
+	float	 fov;
+	float	 near;
+	float	 far;
 
-	GLfloat  speed;
-	GLfloat  sens;
+	float	 speed;
+	float	 sens;
 
-	ProjType proj_t;
+	ProjMode proj_m;
 private:
-	void move(CameraMovement dir, GLfloat dt);
-	void rotate(GLfloat dx, GLfloat dy);
+	void move(float dt);
+	void rotate();
 public:
 	Camera(const vec3& position = cfg::position);
 	mat4 get_view();
-	mat4 get_proj(GLfloat width, GLfloat height);
-	void process_input(Window& wnd, GLfloat dt);
+	mat4 get_proj(float width, float height);
+	void process_input(float dt);
 };

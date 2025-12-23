@@ -3,13 +3,13 @@
 #include <iostream>
 
 void Shader::create(ShaderType type) {
-	id = glCreateShader(static_cast<GLuint>(type));
+	id = glCreateShader(static_cast<uint>(type));
 }
 
 void Shader::check_status() {
-	const GLint sz = 512;
-	GLint success;
-	GLchar infoLog[sz];
+	const int sz = 512;
+	int success;
+	char infoLog[sz];
 	glGetShaderiv(id, GL_COMPILE_STATUS, &success);
 	if (!success) {
 		glGetShaderInfoLog(id, sz, NULL, infoLog);
@@ -34,7 +34,7 @@ Shader::Shader(ShaderType type, const std::string& path) {
 	compile(path);
 }
 
-GLuint Shader::get_id() const noexcept {
+uint Shader::get_id() const noexcept {
 	return id;
 }
 

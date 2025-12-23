@@ -13,24 +13,24 @@ using glm::mat4;
 
 class ShaderProgram {
 private:
-	GLuint id;
+	uint id;
 private:
 	void create();
 	void add(const Shader& sh);
 	void check_status();
 	void link();
 	void clear();
-	GLint get_uniform_location(const std::string& name);
+	int get_uniform_location(const std::string& name);
 public:
 	ShaderProgram(const std::string& vs_path, const std::string& fs_path);
 	ShaderProgram(const ShaderProgram&)				= delete;						// Лучше убрать копирование, т.к. у копии остается тот же id и деструктор может удалить шейдерную программу раньше 
 	ShaderProgram& operator=(const ShaderProgram&)	= delete;
-	GLuint get_id()									const noexcept;
+	uint get_id()									const noexcept;
 	void use();
-	void set(const std::string& name, GLboolean   val);
-	void set(const std::string& name, GLint		  val);
-	void set(const std::string& name, GLuint	  val);
-	void set(const std::string& name, GLfloat	  val);
+	void set(const std::string& name, bool		  val);
+	void set(const std::string& name, int		  val);
+	void set(const std::string& name, uint		  val);
+	void set(const std::string& name, float		  val);
 	void set(const std::string& name, const vec2& val);
 	void set(const std::string& name, const vec3& val);
 	void set(const std::string& name, const vec4& val);

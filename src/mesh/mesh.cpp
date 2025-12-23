@@ -18,7 +18,7 @@ Mesh::Mesh()
     , loaded  { false                  }
 {}
 
-Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<GLuint>& indices, const vec3& aabb_min, const vec3& aabb_max/*, Material* material */)
+Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<uint>& indices, const vec3& aabb_min, const vec3& aabb_max/*, Material* material */)
     : aabb_min{ aabb_min }
     , aabb_max{ aabb_max }
     , loaded  { false    }
@@ -26,7 +26,7 @@ Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<GLuint>& indic
     load(vertices, indices);
 }
 
-void Mesh::load(const std::vector<Vertex>& vertices_, const std::vector<GLuint>& indices_) {
+void Mesh::load(const std::vector<Vertex>& vertices_, const std::vector<uint>& indices_) {
     if (vertices_.empty() || indices_.empty()) return;
     if (loaded) clear();
 

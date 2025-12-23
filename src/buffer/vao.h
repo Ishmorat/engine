@@ -6,7 +6,7 @@ class VAO {
 private:
 	GLuint id;
 private:
-	void attrib(GLuint idx, GLint cnt, GLenum type, const void* ptr);
+	void attrib(uint idx, int cnt, GLenum type, const void* ptr);
 public:
 	VAO();
 	void create();

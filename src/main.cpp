@@ -14,6 +14,8 @@ std::vector<Vertex> get_vertices();
 std::vector<GLuint> get_indices();
 
 int main() {
+    std::cout << sizeof(float) << std::endl;
+
     Window wnd;
     ShaderProgram sp(cnst::simple_vs, cnst::simple_fs);
 
@@ -35,9 +37,9 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // model = glm::rotate(model, glm::radians(0.1f), glm::vec3(1.0, 1.0, 1.0));
-        sp.set("model", model);
-        sp.set("projection", cam.get_proj(wnd.get_width(), wnd.get_height()));
-        sp.set("view", cam.get_view());
+        sp.set(uniform::model,      model);
+        sp.set(uniform::projection, cam.get_proj(wnd.get_width(), wnd.get_height()));
+        sp.set(uniform::view,       cam.get_view());
 
         mesh.draw(sp);
         wnd.swap_buffers();                                                                                 // Swap the screen buffers 
@@ -54,7 +56,7 @@ void process_input(Window& wnd, Camera& cam, GLfloat dt) {
         wnd.set_should_close(true);
     }
 
-    cam.process_input(wnd, dt);
+    cam.process_input(dt);
 }
 
 std::vector<Vertex> get_vertices() {

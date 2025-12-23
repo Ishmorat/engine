@@ -23,6 +23,7 @@ void Window::create() {
         terminate();
         throw std::runtime_error("Window not created");
     }
+    glfwSetInputMode(ptr, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 void Window::set_viewport() {

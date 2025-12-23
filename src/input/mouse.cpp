@@ -37,29 +37,29 @@ void Mouse::scroll_callback(GLFWwindow* window, double dx, double dy) {
 	mouse.dy_scroll = dy;
 }
 
-GLfloat Mouse::get_x() const noexcept {
+float Mouse::get_x() const noexcept {
 	return x;
 }
 
-GLfloat Mouse::get_y() const noexcept {
+float Mouse::get_y() const noexcept {
 	return y;
 }
 
-GLfloat Mouse::get_dx() noexcept {
+float Mouse::get_dx() noexcept {
 	// return dx;
 	return std::exchange(dx, 0.0f);
 }
 
-GLfloat Mouse::get_dy() noexcept {
+float Mouse::get_dy() noexcept {
 	// return dy;
 	return std::exchange(dy, 0.0f);
 }
 
-GLfloat Mouse::get_dx_scroll() noexcept {
+float Mouse::get_dx_scroll() noexcept {
 	return std::exchange(dx_scroll, 0.0f);
 }
 
-GLfloat Mouse::get_dy_scroll() noexcept {
+float Mouse::get_dy_scroll() noexcept {
 	return std::exchange(dy_scroll, 0.0f);
 }
 

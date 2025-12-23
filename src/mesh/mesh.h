@@ -8,7 +8,7 @@
 class Mesh {
 private:
     std::vector<Vertex> vertices;
-    std::vector<GLuint> indices;
+    std::vector<uint>   indices;
     VAO                 vao;
     VBO                 vbo;
     EBO                 ebo;
@@ -21,8 +21,8 @@ private:
     void clear();
 public:
     Mesh();
-    Mesh(const std::vector<Vertex>& vertices, const std::vector<GLuint>& indices, const vec3& aabb_min = vec3(0.0, 0.0, 0.0), const vec3& aabb_max = vec3(1.0, 1.0, 1.0)/*, Material* material */);
-    void load(const std::vector<Vertex>& vertices, const std::vector<GLuint>& indices);
+    Mesh(const std::vector<Vertex>& vertices, const std::vector<uint>& indices, const vec3& aabb_min = vec3(0.0, 0.0, 0.0), const vec3& aabb_max = vec3(1.0, 1.0, 1.0)/*, Material* material */);
+    void load(const std::vector<Vertex>& vertices, const std::vector<uint>& indices);
     void draw(ShaderProgram& sp);
     void bind_textures(ShaderProgram& shader);
     void unbind_textures(ShaderProgram& shader);

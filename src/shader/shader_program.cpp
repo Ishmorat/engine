@@ -10,9 +10,9 @@ void ShaderProgram::add(const Shader& sh) {
 }
 
 void ShaderProgram::check_status() {
-	const GLint sz = 512;
-	GLint success;
-	GLchar infoLog[sz];
+	const int sz = 512;
+	int success;
+	char infoLog[sz];
 	glGetProgramiv(id, GL_LINK_STATUS, &success);
 	if (!success) {
 		glGetProgramInfoLog(id, 512, NULL, infoLog);
@@ -28,7 +28,7 @@ void ShaderProgram::clear() {
 	glDeleteProgram(id);
 }
 
-GLint ShaderProgram::get_uniform_location(const std::string& name) {
+int ShaderProgram::get_uniform_location(const std::string& name) {
 	return glGetUniformLocation(id, name.c_str());
 }
 
@@ -41,7 +41,7 @@ ShaderProgram::ShaderProgram(const std::string& vs_path, const std::string& fs_p
 	link();
 }
 
-GLuint ShaderProgram::get_id() const noexcept {
+uint ShaderProgram::get_id() const noexcept {
 	return id;
 }
 
@@ -49,19 +49,19 @@ void ShaderProgram::use() {
 	glUseProgram(id);
 }
 
-void ShaderProgram::set(const std::string& name, GLboolean val) {
+void ShaderProgram::set(const std::string& name, bool val) {
 	glUniform1i(get_uniform_location(name), static_cast<GLint>(val));
 }
 
-void ShaderProgram::set(const std::string& name, GLint val) {
+void ShaderProgram::set(const std::string& name, int val) {
 	glUniform1i(get_uniform_location(name), val);
 }
 
-void ShaderProgram::set(const std::string& name, GLuint val) {
+void ShaderProgram::set(const std::string& name, uint val) {
 	glUniform1ui(get_uniform_location(name), val);
 }
 
-void ShaderProgram::set(const std::string& name, GLfloat val) {
+void ShaderProgram::set(const std::string& name, float val) {
 	glUniform1f(get_uniform_location(name), val);
 }
 
