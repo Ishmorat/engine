@@ -33,4 +33,6 @@ namespace uniform {
 namespace cnst {
 	static const char*			simple_vs	= "res/shaders/simple.vs";
 	static const char*			simple_fs	= "res/shaders/simple.fs";
+	static const char*			object_vs	= "res/shaders/object.vs";
+	static const char*			object_fs	= "res/shaders/object.fs";
 }
